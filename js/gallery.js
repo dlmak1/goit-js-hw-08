@@ -86,3 +86,18 @@ const galleryMarkup = images
 
 gallery.insertAdjacentHTML('beforeend', galleryMarkup);
 
+gallery.addEventListener('click', onGalleryClick);
+
+function onGalleryClick(event) {
+  event.preventDefault();
+
+  const image = event.target;
+  if (image.nodeName !== 'IMG') return;
+  const largeImageURL = image.getAttribute('data-source');
+  const alt = image.getAttribute('alt');
+  const instance = basicLightbox.create(`
+    <img src=${largeImageURL} width="800" height="600" alt="${alt}">
+`);
+
+  instance.show();
+}
